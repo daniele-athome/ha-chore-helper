@@ -253,6 +253,4 @@ async def async_remove_entry(hass: HomeAssistant, config_entry: ConfigEntry) -> 
 async def update_listener(hass: HomeAssistant, entry: ConfigEntry) -> None:
     """Update listener - to re-create device after options update."""
     await hass.config_entries.async_forward_entry_unload(entry, const.SENSOR_PLATFORM)
-    hass.async_add_job(
-        hass.config_entries.async_forward_entry_setup(entry, const.SENSOR_PLATFORM)
-    )
+    await hass.config_entries.async_forward_entry_setups(entry, PLATFORMS)
